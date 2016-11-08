@@ -1,4 +1,4 @@
-package com.kesco.adk.binding;
+package com.nautnaf.adk.binding;
 
 public class MVVM {
   private MVVM() {

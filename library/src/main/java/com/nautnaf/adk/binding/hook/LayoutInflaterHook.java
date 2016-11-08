@@ -1,13 +1,12 @@
-package com.kesco.adk.binding.hook;
+package com.nautnaf.adk.binding.hook;
 
 import android.content.Context;
-import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 
-import com.kesco.adk.binding.tool.ReflectionUtils;
+import com.nautnaf.adk.binding.tool.ReflectionUtils;
 
 public class LayoutInflaterHook {
   public LayoutInflaterHook() {

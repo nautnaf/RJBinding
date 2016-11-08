@@ -1,10 +1,10 @@
-package com.kesco.adk.binding.showcase;
+package com.nautnaf.adk.binding.showcase;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 
-import com.kesco.adk.binding.hook.LayoutInflaterHook;
+import com.nautnaf.adk.binding.hook.LayoutInflaterHook;
 
 public class MainActivity extends AppCompatActivity {
 
