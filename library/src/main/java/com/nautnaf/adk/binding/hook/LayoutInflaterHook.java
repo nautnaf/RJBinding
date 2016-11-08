@@ -46,17 +46,17 @@ public class LayoutInflaterHook {
   };
 
   static class HookFactory implements LayoutInflater.Factory {
-    final LayoutInflater inflater;
-    final LayoutInflater.Factory delegate;
+    final LayoutInflater _inflater;
+    final LayoutInflater.Factory _delegate;
 
     HookFactory(LayoutInflater inflater, LayoutInflater.Factory delegate) {
-      this.inflater = inflater;
-      this.delegate = delegate;
+      _inflater = inflater;
+      _delegate = delegate;
     }
 
     @Override
     public View onCreateView(String name, Context context, AttributeSet attrs) {
-      View v = delegate.onCreateView(name, context, attrs);
+      View v = _delegate.onCreateView(name, context, attrs);
       return createViewIfNull(v, name, attrs);
     }
 
@@ -77,7 +77,7 @@ public class LayoutInflaterHook {
       if (view != null) return view;
       String fullName = fixViewPrefixName(name);
       try {
-        return inflater.createView(fullName, null, attrs);
+        return _inflater.createView(fullName, null, attrs);
       } catch (ClassNotFoundException e) {
         throw new RuntimeException(e);
       }
@@ -85,18 +85,18 @@ public class LayoutInflaterHook {
   }
 
   static class HookFactory2 extends HookFactory implements LayoutInflater.Factory2 {
-    private final LayoutInflater.Factory2 delegate2;
-    private final Object[] constructorArg;
+    private final LayoutInflater.Factory2 _delegate2;
+    private final Object[] _constructorArg;
 
     HookFactory2(LayoutInflater inflater, LayoutInflater.Factory2 delegate) {
       super(inflater, delegate);
-      delegate2 = delegate;
-      constructorArg = ReflectionUtils.getField(LayoutInflater.class, "mConstructorArgs", inflater);
+      _delegate2 = delegate;
+      _constructorArg = ReflectionUtils.getField(LayoutInflater.class, "mConstructorArgs", inflater);
     }
 
     @Override
     public View onCreateView(View parent, String name, Context context, AttributeSet attrs) {
-      View v = delegate2.onCreateView(parent, name, context, attrs);
+      View v = _delegate2.onCreateView(parent, name, context, attrs);
       return createViewIfNull(v, name, context, attrs);
     }
 
@@ -104,14 +104,14 @@ public class LayoutInflaterHook {
       if (view != null) return view;
       String viewFullName = fixViewPrefixName(name);
 
-      final Object lastContext = constructorArg[0];
-      constructorArg[0] = context;
+      final Object lastContext = _constructorArg[0];
+      _constructorArg[0] = context;
       try {
-        return inflater.createView(viewFullName, null, attrs);
+        return _inflater.createView(viewFullName, null, attrs);
       } catch (ClassNotFoundException e) {
         throw new RuntimeException(e);
       } finally {
-        constructorArg[0] = lastContext;
+        _constructorArg[0] = lastContext;
       }
     }
   }
