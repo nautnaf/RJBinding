@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 
 import com.nautnaf.adk.binding.hook.LayoutInflaterHook;
+import com.nautnaf.adk.binding.parse.ViewAttributeParser;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -12,8 +13,8 @@ public class MainActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
-    LayoutInflaterHook.hook(this);
-    LayoutInflater inflater = LayoutInflater.from(this);
+    ViewAttributeParser parser = new ViewAttributeParser();
+    LayoutInflater inflater = LayoutInflaterHook.hook(this, parser);
     setContentView(inflater.inflate(R.layout.activity_main, null));
   }
 }
